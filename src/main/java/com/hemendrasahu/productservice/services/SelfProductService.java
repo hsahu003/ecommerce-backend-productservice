@@ -21,4 +21,7 @@ public class SelfProductService implements ProductService{
     public List<GenericProductDto> getAllProducts() {
         return List.of();
     }
+
+    public void updateProductById(Long id, GenericProductDto genericProductDto){}
+
 }

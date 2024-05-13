@@ -32,8 +32,9 @@ public class ProductController {
 
     }
 
-    public void updateProductById(){
-
+    @PutMapping("{id}")
+    public void updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto){
+        this.productService.updateProductById(id, genericProductDto);
     }
 
     @PostMapping()

@@ -69,4 +69,12 @@ public class FakeProductService implements ProductService{
         }
         return genericProductDtos;
     }
+
+    public void updateProductById(Long id, GenericProductDto genericProductDto){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        restTemplate.put(
+                productUrl,
+                genericProductDto,
+                id);
+    }
 }
