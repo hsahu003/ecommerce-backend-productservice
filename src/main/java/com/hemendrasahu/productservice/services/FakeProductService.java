@@ -85,4 +85,18 @@ public class FakeProductService implements ProductService{
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
         return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
     }
+
+    @Override
+    public GenericProductDto deleteProduct(Long id) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+                productUrl,
+                HttpMethod.DELETE,
+                null,
+                FakeStoreProductDto.class,
+                id);
+
+        FakeStoreProductDto fakeStoreProductDto = response.getBody();
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
+    }
 }
