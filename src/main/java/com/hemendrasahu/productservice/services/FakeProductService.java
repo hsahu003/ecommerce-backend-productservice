@@ -4,6 +4,8 @@ import com.hemendrasahu.productservice.dtos.FakeStoreProductDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -70,11 +72,17 @@ public class FakeProductService implements ProductService{
         return genericProductDtos;
     }
 
-    public void updateProductById(Long id, GenericProductDto genericProductDto){
+    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto){
         RestTemplate restTemplate = restTemplateBuilder.build();
-        restTemplate.put(
+        HttpEntity<GenericProductDto> entity = new HttpEntity<>(genericProductDto);
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
                 productUrl,
-                genericProductDto,
-                id);
+                HttpMethod.PUT,
+                entity,
+                FakeStoreProductDto.class,
+                id
+                );
+        FakeStoreProductDto fakeStoreProductDto = response.getBody();
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
     }
 }

@@ -9,5 +9,5 @@ public interface ProductService {
     public GenericProductDto createProduct(GenericProductDto genericProductDto);
     public List<GenericProductDto> getAllProducts();
 
-    public void updateProductById(Long id, GenericProductDto genericProductDto);
+    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto);
 }
