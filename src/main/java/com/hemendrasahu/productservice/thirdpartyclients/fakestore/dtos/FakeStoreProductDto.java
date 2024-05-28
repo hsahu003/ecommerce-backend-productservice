@@ -1,4 +1,4 @@
-package com.hemendrasahu.productservice.dtos;
+package com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

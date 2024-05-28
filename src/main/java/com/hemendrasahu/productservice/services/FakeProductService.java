@@ -1,17 +1,16 @@
 package com.hemendrasahu.productservice.services;
 
-import com.hemendrasahu.productservice.dtos.FakeStoreProductDto;
+import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
-import com.hemendrasahu.productservice.thirdpartyclients.FakeStoreProductClient;
+import com.hemendrasahu.productservice.thirdpartyclients.fakestore.FakeStoreProductClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 import java.util.*;
 
+@Primary
 @Service("fakeProductService")
 public class FakeProductService implements ProductService{
 
@@ -42,14 +41,12 @@ public class FakeProductService implements ProductService{
 
     @Override
     public GenericProductDto getProductById(Long id) {
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductClient.getProductById(id);
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.getProductById(id));
     }
 
     @Override
     public GenericProductDto createProduct(GenericProductDto genericProductDto) {
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductClient.createProduct(genericProductDto);
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.createProduct(genericProductDto));
     }
 
     public List<GenericProductDto> getAllProducts(){
@@ -62,13 +59,11 @@ public class FakeProductService implements ProductService{
     }
 
     public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto){
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductClient.updateProductById(id, genericProductDto);
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.updateProductById(id, genericProductDto));
     }
 
     @Override
     public GenericProductDto deleteProduct(Long id) {
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductClient.deleteProduct(id);
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.deleteProduct(id));
     }
 }
