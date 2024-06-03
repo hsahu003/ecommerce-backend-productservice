@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Primary
 @Service("fakeProductService")
 public class FakeProductService implements ProductService{
 
