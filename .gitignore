@@ -35,4 +35,5 @@ build/
 ### properties file ###
 src/main/resources/application.properties
 
-###
+### playground
+src/main/java/com/hemendrasahu/productservice/playground
