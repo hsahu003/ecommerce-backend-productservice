@@ -1,11 +1,13 @@
 package com.hemendrasahu.productservice.services;
 
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.models.Product;
 import com.hemendrasahu.productservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,8 +28,11 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException{
         Optional<Product> optional = productRepository.findById(id);
+        if(optional.isEmpty()){
+            throw new NotFoundException("Product with id " + id + " is not found");
+        }
         Product product = optional.get();
 
         GenericProductDto genericProductDto = objectDtoConverter(product);
@@ -54,14 +59,21 @@ public class SelfProductService implements ProductService{
         return genericProductDtos;
     }
 
-    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto){
+    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto) throws NotFoundException{
+        Optional<Product> existingProduct = productRepository.findById(id);
+
+        if (existingProduct.isEmpty()) {
+            throw new NotFoundException("Product with ID " + id + " not found.");
+        }
+
         Product product = objectDtoConverter(genericProductDto);
+        product.setId(id);
         productRepository.save(product);
         return genericProductDto;
     }
 
     @Override
-    public GenericProductDto deleteProduct(Long id) {
+    public GenericProductDto deleteProduct(Long id) throws NotFoundException{
         GenericProductDto genericProductDto = getProductById(id);
         productRepository.deleteById(id);
         return genericProductDto;

@@ -1,10 +1,14 @@
 package com.hemendrasahu.productservice.controllers;
 
+import com.hemendrasahu.productservice.dtos.ExceptionDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.models.Product;
 import com.hemendrasahu.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,13 +31,13 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id){
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
         return this.productService.getProductById(id);
 
     }
 
     @PatchMapping("{id}")
-    public GenericProductDto updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto){
+    public GenericProductDto updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto) throws NotFoundException{
         return this.productService.updateProductById(id, genericProductDto);
     }
 
@@ -43,7 +47,7 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public GenericProductDto deleteProduct(@PathVariable("id") Long id){
+    public GenericProductDto deleteProduct(@PathVariable("id") Long id) throws NotFoundException{
         return productService.deleteProduct(id);
     }
 }
