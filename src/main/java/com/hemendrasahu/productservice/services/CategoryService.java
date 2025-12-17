@@ -1,13 +1,11 @@
 package com.hemendrasahu.productservice.services;
 
 import com.hemendrasahu.productservice.dtos.CategoryDto;
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class CategoryService {
@@ -25,9 +23,9 @@ public class CategoryService {
         return categoryDto;
     }
 
-    public Category getCategoryById(Long id){
-        Optional<Category> optional = categoryRepository.findById(id);
-        return optional.get();
+    public Category getCategoryById(Long id) throws NotFoundException {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
     }
 
     public Category getCategoryByName(String name){

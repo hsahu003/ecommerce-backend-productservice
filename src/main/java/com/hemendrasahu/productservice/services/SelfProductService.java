@@ -6,8 +6,6 @@ import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.models.Product;
 import com.hemendrasahu.productservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
