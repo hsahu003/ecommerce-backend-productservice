@@ -2,7 +2,6 @@ package com.hemendrasahu.productservice.thirdpartyclients.fakestore;
 
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
-import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;

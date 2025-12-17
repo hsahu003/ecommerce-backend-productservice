@@ -6,9 +6,6 @@ import com.hemendrasahu.productservice.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
 public class CategoryService {
 
@@ -26,8 +23,8 @@ public class CategoryService {
     }
 
     public Category getCategoryById(Long id){
-        Optional<Category> optional = categoryRepository.findById(id);
-        return optional.get();
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
     }
 
     public Category getCategoryByName(String name){
