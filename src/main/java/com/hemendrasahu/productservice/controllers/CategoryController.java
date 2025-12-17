@@ -1,6 +1,7 @@
 package com.hemendrasahu.productservice.controllers;
 
 import com.hemendrasahu.productservice.dtos.CategoryDto;
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public CategoryDto getCategory(@PathVariable("id") Long id){
+    public CategoryDto getCategory(@PathVariable("id") Long id) throws NotFoundException {
         Category category = categoryService.getCategoryById(id);
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName(category.getName());

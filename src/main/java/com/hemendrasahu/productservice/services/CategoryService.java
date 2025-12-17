@@ -1,6 +1,7 @@
 package com.hemendrasahu.productservice.services;
 
 import com.hemendrasahu.productservice.dtos.CategoryDto;
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class CategoryService {
         return categoryDto;
     }
 
-    public Category getCategoryById(Long id){
+    public Category getCategoryById(Long id) throws NotFoundException {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
     }
 
     public Category getCategoryByName(String name){
