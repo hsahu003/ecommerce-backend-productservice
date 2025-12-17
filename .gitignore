@@ -33,7 +33,9 @@ build/
 .vscode/
 
 ### properties file ###
-src/main/resources/application.properties
+# Keep template application.properties, but ignore environment-specific overrides
+src/main/resources/application-*.properties
+!src/main/resources/application.properties
 
 ### playground
 src/main/java/com/hemendrasahu/productservice/playground
