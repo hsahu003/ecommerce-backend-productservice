@@ -64,21 +64,21 @@ public class FakeStoreProductClient {
         return fakeStoreProductDtos;
     }
 
-    public FakeStoreProductDto createProduct(GenericProductDto genericProductDto){
+    public FakeStoreProductDto createProduct(FakeStoreProductDto fakeStoreProductDto){
         RestTemplate restTemplate = restTemplateBuilder.build();
-        HttpEntity<GenericProductDto> httpEntity = new HttpEntity<>(genericProductDto);
+        HttpEntity<FakeStoreProductDto> httpEntity = new HttpEntity<>(fakeStoreProductDto);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
                 productUrl,
                 HttpMethod.POST,
                 httpEntity,
                 FakeStoreProductDto.class);
-        FakeStoreProductDto fakeStoreProductDto = response.getBody();
-        return  fakeStoreProductDto;
+        FakeStoreProductDto fakeStoreProductDtoResponse = response.getBody();
+        return  fakeStoreProductDtoResponse;
     }
 
-    public FakeStoreProductDto updateProductById(Long id, GenericProductDto genericProductDto){
+    public FakeStoreProductDto updateProductById(Long id, FakeStoreProductDto fakeStoreProductDto){
         RestTemplate restTemplate = restTemplateBuilder.build();
-        HttpEntity<GenericProductDto> entity = new HttpEntity<>(genericProductDto);
+        HttpEntity<FakeStoreProductDto> entity = new HttpEntity<>(fakeStoreProductDto);
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
                 productUrlWithParameter,
                 HttpMethod.PUT,
@@ -86,8 +86,8 @@ public class FakeStoreProductClient {
                 FakeStoreProductDto.class,
                 id
         );
-        FakeStoreProductDto fakeStoreProductDto = response.getBody();
-        return fakeStoreProductDto;
+        FakeStoreProductDto fakeStoreProductDtoResponse = response.getBody();
+        return fakeStoreProductDtoResponse;
     }
 
     public FakeStoreProductDto deleteProduct(Long id){
