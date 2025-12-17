@@ -1,5 +1,6 @@
 package com.hemendrasahu.productservice.services;
 
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.FakeStoreProductClient;
@@ -10,18 +11,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Primary
 @Service("fakeProductService")
 public class FakeProductService implements ProductService{
 
     private FakeStoreProductClient fakeStoreProductClient;
-    private RestTemplateBuilder restTemplateBuilder;
     private String productUrl = "https://fakestoreapi.com/products/{id}";
     private String createProductUrl = "https://fakestoreapi.com/products";
     private String getAllProductUrl =  "https://fakestoreapi.com/products";
 
     @Autowired
-    public FakeProductService(RestTemplateBuilder restTemplateBuilder, FakeStoreProductClient fakeStoreProductClient){
-        this.restTemplateBuilder = restTemplateBuilder;
+    public FakeProductService(FakeStoreProductClient fakeStoreProductClient){
         this.fakeStoreProductClient = fakeStoreProductClient;
     }
 
@@ -39,7 +39,7 @@ public class FakeProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
         return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.getProductById(id));
     }
 
@@ -48,6 +48,7 @@ public class FakeProductService implements ProductService{
         return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.createProduct(genericProductDto));
     }
 
+    @Override
     public List<GenericProductDto> getAllProducts(){
         FakeStoreProductDto[] fakeStoreProductDtos = fakeStoreProductClient.getAllProducts();
         List<GenericProductDto> genericProductDtos = new ArrayList<>();

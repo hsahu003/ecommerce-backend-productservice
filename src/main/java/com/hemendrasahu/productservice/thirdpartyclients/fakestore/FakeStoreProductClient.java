@@ -1,5 +1,6 @@
 package com.hemendrasahu.productservice.thirdpartyclients.fakestore;
 
+import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class FakeStoreProductClient {
         this.productUrl = this.fakeStoreApiBaseUrl + this.fakeStoreProductPath;
         this.productUrlWithParameter = this.productUrl + "/{id}";
     }
-    public FakeStoreProductDto getProductById(Long id){
+    public FakeStoreProductDto getProductById(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
                 productUrlWithParameter,
@@ -44,6 +45,11 @@ public class FakeStoreProductClient {
                 FakeStoreProductDto.class,
                 id);
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
+
+        if(fakeStoreProductDto == null){
+            throw new NotFoundException("Product not found");
+        }
+
         return fakeStoreProductDto;
     }
 
