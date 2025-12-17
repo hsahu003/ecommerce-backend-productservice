@@ -1,6 +1,7 @@
 package com.hemendrasahu.productservice.services;
 
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
+import com.hemendrasahu.productservice.mappers.ProductDtoMapper;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.FakeStoreProductClient;
@@ -16,13 +17,15 @@ import java.util.*;
 public class FakeProductService implements ProductService{
 
     private FakeStoreProductClient fakeStoreProductClient;
+    private ProductDtoMapper productDtoMapper;
     private String productUrl = "https://fakestoreapi.com/products/{id}";
     private String createProductUrl = "https://fakestoreapi.com/products";
     private String getAllProductUrl =  "https://fakestoreapi.com/products";
 
     @Autowired
-    public FakeProductService(FakeStoreProductClient fakeStoreProductClient){
+    public FakeProductService(FakeStoreProductClient fakeStoreProductClient, ProductDtoMapper productDtoMapper){
         this.fakeStoreProductClient = fakeStoreProductClient;
+        this.productDtoMapper = productDtoMapper;
     }
 
     private GenericProductDto convertFakeStoreDtoToGenericProductDto(FakeStoreProductDto fakeStoreProductDto){
@@ -40,12 +43,13 @@ public class FakeProductService implements ProductService{
 
     @Override
     public GenericProductDto getProductById(Long id) throws NotFoundException {
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.getProductById(id));
+        return productDtoMapper.toGeneric(fakeStoreProductClient.getProductById(id));
     }
 
     @Override
     public GenericProductDto createProduct(GenericProductDto genericProductDto) {
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.createProduct(genericProductDto));
+        FakeStoreProductDto fakeStoreProductDto = productDtoMapper.toFakeStore(genericProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.createProduct(fakeStoreProductDto));
     }
 
     @Override
@@ -53,17 +57,18 @@ public class FakeProductService implements ProductService{
         FakeStoreProductDto[] fakeStoreProductDtos = fakeStoreProductClient.getAllProducts();
         List<GenericProductDto> genericProductDtos = new ArrayList<>();
         for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
-            genericProductDtos.add(convertFakeStoreDtoToGenericProductDto(fakeStoreProductDto));
+            genericProductDtos.add(productDtoMapper.toGeneric(fakeStoreProductDto));
         }
         return genericProductDtos;
     }
 
     public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto){
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.updateProductById(id, genericProductDto));
+        FakeStoreProductDto fakeStoreProductDto = productDtoMapper.toFakeStore(genericProductDto);
+        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.updateProductById(id, fakeStoreProductDto));
     }
 
     @Override
     public GenericProductDto deleteProduct(Long id) {
-        return convertFakeStoreDtoToGenericProductDto(fakeStoreProductClient.deleteProduct(id));
+        return productDtoMapper.toGeneric(fakeStoreProductClient.deleteProduct(id));
     }
 }
