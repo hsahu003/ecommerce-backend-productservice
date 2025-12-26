@@ -13,6 +13,6 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseModel {
     @Id
-    @GeneratedValue()
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 }

@@ -2,15 +2,16 @@ package com.hemendrasahu.productservice.services;
 
 import java.util.List;
 
-import com.hemendrasahu.productservice.dtos.GenericProductDto;
+import com.hemendrasahu.productservice.dtos.ProductRequestDto;
+import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
 
 public interface ProductService {
-    public GenericProductDto getProductById(Long id) throws NotFoundException;
-    public GenericProductDto createProduct(GenericProductDto genericProductDto);
-    public List<GenericProductDto> getAllProducts();
+    public ProductResponseDto getProductById(String id) throws NotFoundException;
+    public ProductResponseDto createProduct(ProductRequestDto productRequestDto);
+    public List<ProductResponseDto> getAllProducts();
 
-    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto) throws NotFoundException;
+    public ProductResponseDto updateProductById(String id, ProductRequestDto productRequestDto) throws NotFoundException;
 
-    public GenericProductDto deleteProduct(Long id) throws NotFoundException;
+    public ProductResponseDto deleteProduct(String id) throws NotFoundException;
 }

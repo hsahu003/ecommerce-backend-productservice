@@ -1,16 +1,12 @@
 package com.hemendrasahu.productservice.controllers;
 
-import com.hemendrasahu.productservice.dtos.ExceptionDto;
 import com.hemendrasahu.productservice.dtos.GenericProductDto;
+import com.hemendrasahu.productservice.dtos.ProductRequestDto;
+import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
-import com.hemendrasahu.productservice.models.Product;
 import com.hemendrasahu.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -26,28 +22,28 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<GenericProductDto> getAllProducts(){
+    public List<ProductResponseDto> getAllProducts(){
         return this.productService.getAllProducts();
     }
 
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
+    public ProductResponseDto getProductById(@PathVariable("id") String id) throws NotFoundException {
         return this.productService.getProductById(id);
 
     }
 
     @PatchMapping("{id}")
-    public GenericProductDto updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto) throws NotFoundException{
-        return this.productService.updateProductById(id, genericProductDto);
+    public ProductResponseDto updateProductById(@PathVariable("id") String id, @RequestBody ProductRequestDto productRequestDto) throws NotFoundException{
+        return this.productService.updateProductById(id, productRequestDto);
     }
 
     @PostMapping()
-    public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto){
-        return productService.createProduct(genericProductDto);
+    public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto){
+        return productService.createProduct(productRequestDto);
     }
 
     @DeleteMapping("{id}")
-    public GenericProductDto deleteProduct(@PathVariable("id") Long id) throws NotFoundException{
+    public ProductResponseDto deleteProduct(@PathVariable("id") String id) throws NotFoundException{
         return productService.deleteProduct(id);
     }
 }

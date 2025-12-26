@@ -25,8 +25,15 @@ public class CategoryService {
         return categoryDto;
     }
 
-    public Category getCategoryById(Long id){
-        Optional<Category> optional = categoryRepository.findById(id);
+    public Category getCategoryById(String id){
+        Optional<Category> optional = categoryRepository.findById(UUID.fromString(id));
+        Category category = optional.get();
+        System.out.println(category);
+
+        System.out.println(category.getName());
+        System.out.println(category.getId());
+        System.out.println(category.getProducts());
+
         return optional.get();
     }
 

@@ -3,11 +3,9 @@ package com.hemendrasahu.productservice.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
-public class GenericProductDto {
+public class ProductResponseDto {
     private String id;
     private String title;
     private String description;

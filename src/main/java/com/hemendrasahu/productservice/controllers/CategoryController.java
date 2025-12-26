@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public CategoryDto getCategory(@PathVariable("id") Long id){
+    public CategoryDto getCategory(@PathVariable("id") String id){
         Category category = categoryService.getCategoryById(id);
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName(category.getName());
