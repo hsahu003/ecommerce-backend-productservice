@@ -1,6 +1,8 @@
 package com.hemendrasahu.productservice.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,8 @@ public class ProductRequestDto {
     private String description;
     private String image;
     private String category;
-    @NotBlank(message = "Price cannot be empty")
-    private double price;
+
+    @Positive(message = "Price must be greater than zero")
+    @NotNull(message = "Price is required")
+    private Double price;
 }
