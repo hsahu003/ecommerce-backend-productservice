@@ -5,6 +5,7 @@ import com.hemendrasahu.productservice.dtos.ProductRequestDto;
 import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto){
+    public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto){
         return productService.createProduct(productRequestDto);
     }
 
