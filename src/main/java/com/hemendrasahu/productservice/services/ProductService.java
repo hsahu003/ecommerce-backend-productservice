@@ -7,11 +7,11 @@ import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
 
 public interface ProductService {
-    public ProductResponseDto getProductById(String id) throws NotFoundException;
-    public ProductResponseDto createProduct(ProductRequestDto productRequestDto);
-    public List<ProductResponseDto> getAllProducts();
+    ProductResponseDto getProductById(String id) throws NotFoundException;
+    ProductResponseDto createProduct(ProductRequestDto productRequestDto) throws NotFoundException;
+    List<ProductResponseDto> getAllProducts();
 
-    public ProductResponseDto updateProductById(String id, ProductRequestDto productRequestDto) throws NotFoundException;
+    ProductResponseDto updateProductById(String id, ProductRequestDto productRequestDto) throws NotFoundException;
 
-    public ProductResponseDto deleteProduct(String id) throws NotFoundException;
+    ProductResponseDto deleteProduct(String id) throws NotFoundException;
 }

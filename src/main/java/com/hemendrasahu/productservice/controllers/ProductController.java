@@ -38,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto){
+    public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto) throws NotFoundException {
         return productService.createProduct(productRequestDto);
     }
 

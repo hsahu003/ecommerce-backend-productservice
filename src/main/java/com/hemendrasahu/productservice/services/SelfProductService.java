@@ -1,9 +1,9 @@
 package com.hemendrasahu.productservice.services;
 
-import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import com.hemendrasahu.productservice.dtos.ProductRequestDto;
 import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
+import com.hemendrasahu.productservice.models.Category;
 import com.hemendrasahu.productservice.models.Product;
 import com.hemendrasahu.productservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
+@Primary
 @Service("selfProductService")
 public class SelfProductService implements ProductService{
 
@@ -40,7 +40,12 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) throws NotFoundException{
+        //check if the category exist or not
+        Category category = categoryService.getCategoryByName(productRequestDto.getCategory());
+        if(category == null){
+            throw new NotFoundException("Category " + productRequestDto.getCategory() + " is not found");
+        }
         Product product = objectDtoConverter(productRequestDto);
         Product savedProduct = productRepository.save(product);
         return objectDtoConverter(savedProduct);

@@ -57,7 +57,7 @@ public class ProductControllerTest {
     /*----------------createProduct()------------------*/
 
     @Test
-    public void testCreateProductReturnsCreatedProduct(){
+    public void testCreateProductReturnsCreatedProduct() throws NotFoundException {
         //1. Arrange
         ProductRequestDto productRequestDto = new ProductRequestDto();
         productRequestDto.setTitle("Kindle");
