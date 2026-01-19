@@ -100,7 +100,7 @@ public class ProductControllerMockMVCTest {
     }
 
     @Test
-    public void testCreateProductAPI_gives400StatusAndGivesErrorInResponse_whenInRequestBody_MandatoryFieldsAreMissing() throws Exception {
+    public void testCreateProductAPI_Returns400_WhenMandatoryFieldsAreMissing() throws Exception {
         //1. Arrange
         ProductRequestDto  productRequestDto = new ProductRequestDto();
         productRequestDto.setImage("/image");
