@@ -4,15 +4,13 @@ import com.hemendrasahu.productservice.dtos.ProductRequestDto;
 import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.dtos.FakeStoreProductDto;
-import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import com.hemendrasahu.productservice.thirdpartyclients.fakestore.FakeStoreProductClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Primary
+
 @Service("fakeProductService")
 public class FakeProductService implements ProductService{
 
@@ -68,7 +66,7 @@ public class FakeProductService implements ProductService{
     }
 
     @Override
-    public ProductResponseDto updateProductById(String id, ProductRequestDto productRequestDto) throws NotFoundException{
+    public ProductResponseDto updateProductById(String id, ProductRequestDto productRequestDto){
         FakeStoreProductDto fakeStoreProductDto = convertProductRequestDtoToFakeStoreDto(productRequestDto);
         return convertFakeStoreDtoToProductResponseDto(fakeStoreProductClient.updateProductById(Long.parseLong(id), fakeStoreProductDto));
     }
