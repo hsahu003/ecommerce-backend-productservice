@@ -3,6 +3,7 @@ package com.hemendrasahu.productservice.exceptions;
 import com.hemendrasahu.productservice.dtos.ExceptionDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,5 +31,15 @@ public class GlobalExceptionHandler{
         });
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, String>> handleEmptyBody(HttpMessageNotReadableException ex) {
+        Map<String, String> response = new HashMap<>();
+
+        response.put("error", "Bad Request");
+        response.put("message", "The request body is missing or malformed.");
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
