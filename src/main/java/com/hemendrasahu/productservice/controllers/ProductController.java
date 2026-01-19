@@ -1,6 +1,5 @@
 package com.hemendrasahu.productservice.controllers;
 
-import com.hemendrasahu.productservice.dtos.GenericProductDto;
 import com.hemendrasahu.productservice.dtos.ProductRequestDto;
 import com.hemendrasahu.productservice.dtos.ProductResponseDto;
 import com.hemendrasahu.productservice.exceptions.NotFoundException;
