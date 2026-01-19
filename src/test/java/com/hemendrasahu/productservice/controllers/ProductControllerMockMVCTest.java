@@ -90,7 +90,7 @@ public class ProductControllerMockMVCTest {
     }
 
     @Test
-    public void testCreateProductAPI_gives400StatusAndGivesErrorInResponse_whenEmptyRequestBodyIsPassed() throws Exception {
+    public void testCreateProductAPI_Returns400_WhenRequestBodyIsEmpty() throws Exception {
         //1. Act
         mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
